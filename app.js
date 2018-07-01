@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.engine('.html', require('ejs').__express)
 app.set('view engine', 'html')
 
-// secret for cookie signature
+// the secret used to sign the cookie
 const cookieSecret = 'a user login system demo using express.'
 const sessionSecret = cookieSecret
 
@@ -28,8 +28,16 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(cookieSecret));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
+    // the secret used to sign the session ID cookie
     secret: sessionSecret,
-    resave: true
+    // renew the life of the session object after every request
+    resave: true,
+    // if the session object isn't modified, 
+    // the server will not generate the session ID cookie,
+    // so the session object will not be stored
+    saveUninitialized: false,
+    // can not use `MemoryStore` in production environment
+    // store: MemoryStore (default)
 }))
 
 // the route for debug

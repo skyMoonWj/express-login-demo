@@ -10,9 +10,12 @@
     <h1>All Users</h1>
     <div>
         <ul>
-            <% for (user of users) { %>
+            <% for (user of users) { 
+                if (user.name == sessionUser.name) { %>
+            <li><b><%= user.name %></b></li>
+            <%  } else { %>
             <li><%= user.name %></li>
-            <% } %>
+            <% }} %>
         </ul>
     </div>
     <div>
