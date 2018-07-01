@@ -5,10 +5,11 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const session = require('express-session')
 
-// routers
+// routers and middlewares
 const authRouter = require('./routes/auth')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
+const isLogin = require('./middlewares/is-login')
 
 // use html file as view engine file
 var app = express();
@@ -31,17 +32,17 @@ app.use(session({
     resave: true
 }))
 
+// routers for debug
+app.get('/debug', (req, res) => {
+    const session = JSON.stringify(req.session)
+    res.send(session)
+})
+
 // routers which need not to login authentication
 app.use('/', authRouter)
 
 // isLogin authentication
-app.use((req, res, next) => {
-    if (req.session.isLogin !== true && req.signedCookies.user != 1) {
-        res.redirect('/login')
-        return
-    }
-    next()
-})
+app.use(isLogin)
 
 // routers which need to login authentication
 app.use('/', indexRouter)

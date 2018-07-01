@@ -1,9 +1,13 @@
-var express = require('express');
-var router = express.Router();
+// dependencies
+const express = require('express')
+const userModel = require('../mock/users')
 
-/* GET users listing. */
+const router = express.Router()
+
+// users page
 router.get('/', function(req, res, next) {
-  res.render('user/users')
+  const users = userModel.getAll()
+  res.render('user/users', {users})
 });
 
 module.exports = router;

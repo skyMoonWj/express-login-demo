@@ -1,4 +1,7 @@
+// dependencies
 const express = require('express')
+const userModel = require('../mock/users')
+
 const router = express.Router()
 
 // login page
@@ -12,22 +15,42 @@ router.get('/login', (req, res) => {
 
 // login auth
 router.post('/login', (req, res) => {
-    if (req.body.username == 'xavier' && req.body.password == '123') {
+    const result = userModel.pwdAuth(req.body.username, req.body.password)
+    if (result !== false) {
+        // set session
         req.session.isLogin = true
-        res.cookie('user', 1, {signed: true})
+        req.session.userInfo = result
+
+        // set cookie
+        if (req.body.remember == 'on') {
+            res.cookie('uid', result.id, {
+                signed: true, 
+                maxAge: 1000 * 60 * 60 * 24 * 30
+            })
+        } else {
+            res.cookie('uid', result.id, {signed: true})
+        }
+
+        // redirect to home page
         res.redirect('/')
     } else {
         res.render('message', {
             title: 'Warning',
-            message: 'Login Failure!'
+            message: 'Login failed!'
         })
     }
 })
 
 // logout
 router.get('/logout', (req, res) => {
+    // clear session
     delete req.session.isLogin
-    res.clearCookie('user')
+    delete req.session.userInfo
+
+    // clear cookie
+    res.clearCookie('uid')
+
+    // redirect -> home page -> login page
     res.redirect('/')
 })
 

@@ -7,16 +7,16 @@
     <title>USERS</title>
 </head>
 <body>
+    <h1>All Users</h1>
     <div>
         <ul>
-            <li>Xavier</li>
-            <li>Evan</li>
-            <li>Nelson</li>
-            <li>Ryan</li>
+            <% for (user of users) { %>
+            <li><%= user.name %></li>
+            <% } %>
         </ul>
     </div>
     <div>
-        <a href="/">Back to Home Page</a> 
+        <a href="/">Back to Home Page</a> &nbsp;
         <a href="/logout">Logout</a>
     </div>
 </body>
