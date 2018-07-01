@@ -32,19 +32,19 @@ app.use(session({
     resave: true
 }))
 
-// routers for debug
+// the route for debug
 app.get('/debug', (req, res) => {
     const session = JSON.stringify(req.session)
     res.send(session)
 })
 
-// routers which need not to login authentication
+// routes which need not to login authentication
 app.use('/', authRouter)
 
 // isLogin authentication
 app.use(isLogin)
 
-// routers which need to login authentication
+// routes which need to login authentication
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 
