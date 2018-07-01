@@ -18,7 +18,7 @@ app.engine('.html', require('ejs').__express)
 app.set('view engine', 'html')
 
 // secret for cookie signature
-const cookieSecret = 'a user login demo using express.'
+const cookieSecret = 'a user login system demo using express.'
 const sessionSecret = cookieSecret
 
 // middlewares

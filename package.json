@@ -1,6 +1,6 @@
 {
-  "name": "express-demo",
-  "description": "A user login demo using express",
+  "name": "login-system",
+  "description": "A user login system demo using express",
   "version": "0.0.0",
   "author": "Xavier Zhao <xvrzhao@gmail.com> (http://xvrzhao.xyz)",
   "license": "MIT",
