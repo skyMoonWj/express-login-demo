@@ -1,1 +1,8 @@
 A user login demo using express.
+
+$ git clone git@github.com:xvrzhao/express-login-demo.git
+$ cd express-login-demo
+$ npm install
+$ npm start
+
+Then visit the url: localhost:3000, the username is `xavier` while the password is `123`.
